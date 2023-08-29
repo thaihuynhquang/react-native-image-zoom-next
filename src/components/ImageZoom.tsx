@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
@@ -7,12 +6,6 @@ import { useGestures } from '../hooks/useGestures';
 import { useImageLayout } from '../hooks/useImageLayout';
 
 import type { ImageZoomProps } from '../types';
-
-const styles = StyleSheet.create({
-  image: {
-    flex: 1,
-  },
-});
 
 const ImageZoom: React.FC<ImageZoomProps> = ({
   uri = '',
@@ -29,7 +22,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({
   onPanStart,
   onPanEnd,
   onLayout,
-  style = {},
+  style,
   ...props
 }) => {
   const { center, onImageLayout } = useImageLayout({ onLayout });
@@ -52,7 +45,7 @@ const ImageZoom: React.FC<ImageZoomProps> = ({
   return (
     <GestureDetector gesture={gestures}>
       <Animated.Image
-        style={[styles.image, style, animatedStyle]}
+        style={[style, animatedStyle]}
         source={{ uri }}
         resizeMode="contain"
         onLayout={onImageLayout}

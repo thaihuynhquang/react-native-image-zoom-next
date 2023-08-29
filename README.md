@@ -37,11 +37,7 @@ Photo by <a href="https://unsplash.com/photos/XLqiL-rz4V8" title="Photo by Walli
 To use the `ImageZoom` component, you first need to install the package via npm or yarn. Run either of the following commands:
 
 ```sh
-npm install @likashefqet/react-native-image-zoom
-```
-
-```sh
-yarn add @likashefqet/react-native-image-zoom
+npm i @thaihuynhquang/react-native-image-zoom-next
 ```
 
 🚨 🚨 Please note that this library is built with React Native Reanimated v2 and uses React Native Gesture Handler. If you haven't installed Reanimated and Gesture Handler yet, please follow the installation instructions for [Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation) and [Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/).

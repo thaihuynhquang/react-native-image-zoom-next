@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import {
   runOnJS,
@@ -32,6 +32,7 @@ export const useGestures = ({
   onPinchEnd,
   onPanStart,
   onPanEnd,
+  resetZoom,
 }: ImageZoomUseGesturesProps) => {
   const isInteracting = useRef(false);
   const isPanning = useRef(false);
@@ -41,6 +42,33 @@ export const useGestures = ({
   const initialFocal = { x: useSharedValue(0), y: useSharedValue(0) };
   const focal = { x: useSharedValue(0), y: useSharedValue(0) };
   const translate = { x: useSharedValue(0), y: useSharedValue(0) };
+
+  const states = useMemo(
+    () => ({
+      scale: scale.value,
+      initialFocal: {
+        x: initialFocal.x.value,
+        y: initialFocal.y.value,
+      },
+      focal: {
+        x: focal.x.value,
+        y: focal.y.value,
+      },
+      translate: {
+        x: translate.x.value,
+        y: translate.y.value,
+      },
+    }),
+    [
+      scale.value,
+      focal.x.value,
+      focal.y.value,
+      initialFocal.x.value,
+      initialFocal.y.value,
+      translate.x.value,
+      translate.y.value,
+    ]
+  );
 
   const reset = useCallback(() => {
     'worklet';
@@ -70,9 +98,11 @@ export const useGestures = ({
 
   const onInteractionEnded = () => {
     if (isInteracting.current && !isPinching.current && !isPanning.current) {
-      reset();
+      if (resetZoom) {
+        reset();
+      }
       isInteracting.current = false;
-      onInteractionEnd?.();
+      onInteractionEnd?.(states);
     }
   };
 
@@ -86,6 +116,9 @@ export const useGestures = ({
     isPinching.current = false;
     onPinchEnd?.();
     onInteractionEnded();
+    if (scale.value < 1) {
+      reset();
+    }
   };
 
   const onPanStarted = () => {

@@ -1,5 +1,12 @@
 import type { ImageProps, ImageSourcePropType } from 'react-native';
 
+export type ImageZoomStates = {
+  scale: number;
+  initialFocal: { x: number; y: number };
+  focal: { x: number; y: number };
+  translate: { x: number; y: number };
+};
+
 export type ImageZoomProps = Omit<ImageProps, 'source'> & {
   /**
    * The image's URI, which can be overridden by the `source` prop.
@@ -43,7 +50,7 @@ export type ImageZoomProps = Omit<ImageProps, 'source'> & {
   /**
    * A callback triggered when the image interaction ends.
    */
-  onInteractionEnd?: Function;
+  onInteractionEnd?: (states: ImageZoomStates) => void;
   /**
    * A callback triggered when the image pinching starts.
    */
@@ -65,6 +72,10 @@ export type ImageZoomProps = Omit<ImageProps, 'source'> & {
    * @default undefined
    */
   source?: ImageSourcePropType;
+  /**
+   * Determines whether the image should be reset to its original size when gesture interaction ends.
+   */
+  resetZoom?: boolean;
 };
 
 export type ImageZoomUseLayoutProps = Pick<ImageZoomProps, 'onLayout'>;
@@ -100,4 +111,5 @@ export type ImageZoomUseGesturesProps = Pick<ImageZoomLayoutState, 'center'> &
     | 'onPinchEnd'
     | 'onPanStart'
     | 'onPanEnd'
+    | 'resetZoom'
   >;

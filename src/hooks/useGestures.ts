@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import {
   runOnJS,
@@ -43,33 +43,6 @@ export const useGestures = ({
   const focal = { x: useSharedValue(0), y: useSharedValue(0) };
   const translate = { x: useSharedValue(0), y: useSharedValue(0) };
 
-  const states = useMemo(
-    () => ({
-      scale: scale.value,
-      initialFocal: {
-        x: initialFocal.x.value,
-        y: initialFocal.y.value,
-      },
-      focal: {
-        x: focal.x.value,
-        y: focal.y.value,
-      },
-      translate: {
-        x: translate.x.value,
-        y: translate.y.value,
-      },
-    }),
-    [
-      scale.value,
-      focal.x.value,
-      focal.y.value,
-      initialFocal.x.value,
-      initialFocal.y.value,
-      translate.x.value,
-      translate.y.value,
-    ]
-  );
-
   const reset = useCallback(() => {
     'worklet';
     scale.value = withTiming(1);
@@ -102,7 +75,21 @@ export const useGestures = ({
         reset();
       }
       isInteracting.current = false;
-      onInteractionEnd?.(states);
+      onInteractionEnd?.({
+        scale: scale.value,
+        initialFocal: {
+          x: initialFocal.x.value,
+          y: initialFocal.y.value,
+        },
+        focal: {
+          x: focal.x.value,
+          y: focal.y.value,
+        },
+        translate: {
+          x: translate.x.value,
+          y: translate.y.value,
+        },
+      });
     }
   };
 

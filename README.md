@@ -9,6 +9,8 @@
 ![npms.io (final)](https://img.shields.io/npms-io/maintenance-score/@likashefqet/react-native-image-zoom)
 ![GitHub issues](https://img.shields.io/github/issues/likashefqet/react-native-image-zoom)
 
+**This fork made some changes to the codebase and was used only in private project**
+
 **A performant and customizable image zoom component  
 built with Reanimated v2+ and TypeScript. 🌃 🚀**
 

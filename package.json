@@ -1,6 +1,6 @@
 {
   "name": "@thaihuynhquang/react-native-image-zoom-next",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A performant zoomable image written in Reanimated v2+ 🚀",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
